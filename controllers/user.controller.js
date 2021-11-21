@@ -1,12 +1,11 @@
 require('dotenv').config()
 
-const {User} = require("../models/user.model")
-
+const { User, UserRole } = require('../models')
 const bcrypt = require('bcrypt')
 
 exports.register = async (req, res, next) => {
     try {
-        const {fullName, email, password} = req.body
+        const { fullName, email, password, roleName } = req.body
         const isExist = await User.findOne({
             where: {
                 email
@@ -28,11 +27,24 @@ exports.register = async (req, res, next) => {
             fullName,
             email,
             password: passwordHash,
+                role: {
+                name: roleName
+                }
+        }, {
+            include: [
+                {
+                    model: UserRole,
+                    as: 'role'
+                }
+            ]
         })
 
         return res.status(200).json({
             message: 'success register user, please login',
-            code: 200
+            code: 200,
+            data: {
+                user
+            }
         })
     } catch (error) {
         next(error)

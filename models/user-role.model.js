@@ -1,35 +1,31 @@
 const sequelize = require('./sequelize')
 const { Model, DataTypes } = require('sequelize')
 
-class User extends Model{}
+class UserRole extends Model{}
 
-User.init(
+UserRole.init(
     {
         id: {
             type: DataTypes.INTEGER,
-            primaryKey: true,
             autoIncrement: true,
+            allowNull: false,
+            primaryKey: true
+          },
+          name: {
+            type: DataTypes.ENUM('SuperAdmin', 'PlayerUser'),
             allowNull: false
           },
-          fullName: {
-            type: DataTypes.STRING(50),
+          userId: {
+            type: DataTypes.INTEGER,
             allowNull: false
-          },
-          email: {
-            type: DataTypes.STRING(100),
-            allowNull: false
-          },
-          password: {
-            type: DataTypes.STRING,
-            allowNull: false
-          },
+        },
           createdAt: {
             type: DataTypes.DATE,
-            kdefaultValue: new Date()
+            defaultValue: new Date()
           },
           updatedAt: {
             type: DataTypes.DATE,
-            kdefaultValue: new Date()
+            defaultValue: new Date()
           },
           deletedAt: {
             type: DataTypes.DATE,
@@ -38,11 +34,11 @@ User.init(
     },
     {
         sequelize,
-        tableName: 'users_game',
-        modelName: 'users_game',
+        tableName: 'user_roles',
+        modelName: 'user_roles',
         timestamps: true,
         paranoid: true
     }
 )
 
-module.exports = User
+module.exports = UserRole
