@@ -4,7 +4,7 @@
   "description": "challeng 7 play game",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "db:migrate": "sequelize db:migrate"
   },
   "keywords": [
     "MVC",

@@ -9,7 +9,7 @@ module.exports = {
     "database": DB_NAME,
     "host": DB_HOST,
     "dialect": "postgres",
-    "port": DB_PORT
+    "port": parseInt(DB_PORT, 10)
   },
   "test": {
     "username": DB_USER,
