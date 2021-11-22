@@ -4,6 +4,10 @@ const { User, UserRole } = require('../models')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 
+exports.viewLogin = async (req, res, next) => {
+    return res.render('login')
+}
+
 // fungsi register
 exports.register = async (req, res, next) => {
     try {
@@ -55,6 +59,25 @@ exports.register = async (req, res, next) => {
 
 exports.login = async (req, res, next) => {
     try {
+        console.log(req.headers)
+        const {authorization} = req.headers
+
+        if (authorization) {
+            const bearerToken = authorization.split(' ')[1]
+
+            try {
+                const isValidToken = jwt.verify(bearerToken, process.env.JWT_TOKEN, {})
+            if(isValidToken && isValidToken.userId) {
+                return res.status(200).json({
+                    message: 'success login',
+                    code: 200
+                })
+            }
+            } catch (error) {
+                
+            }   
+        }
+        
         const { email, password } = req.body
 
         const isExist = await User.findOne({
@@ -87,7 +110,7 @@ exports.login = async (req, res, next) => {
             }
         }
 
-        const token = jwt.sign({ userId: isExist.id, roleName: isExist.role.name }, process.env.JWT_TOKEN, {expiresIn: '7 days'})
+        const token = jwt.sign({ userId: isExist.id, roleName: isExist.role.name }, process.env.JWT_TOKEN, {expiresIn: '1 minutes'})
 
         return res.status(200).json({
             message: 'success login',

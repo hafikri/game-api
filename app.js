@@ -3,11 +3,12 @@ require('dotenv').config()
 const {SESSION_SECRET} = process.env
 const express = require('express')
 const path = require('path')
-const user = require('./routers/user.router')
-const dashboard = require('./routers/dashboard.router')
 const session = require('express-session')
 const flash = require('express-flash')
 const passport = require('./utils/passport')
+
+const user = require('./routers/user.router')
+const dashboard = require('./routers/dashboard.router')
 
 const app = express()
 
@@ -18,9 +19,9 @@ app.use(session({
     resave: false,
     saveUninitialized: false
 }))
-app.use(flash)
+app.use(flash())
 app.use(passport.initialize())
-app.use(passport.session)
+app.use(passport.session())
 
 app.set('view engine', 'ejs')
 app.set('views', path.join(__dirname, 'views'))
