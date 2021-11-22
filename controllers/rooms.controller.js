@@ -19,7 +19,7 @@ exports.createRoom = async (req, res, next) => {
         })
 
         const flag = `Room-${(Math.random()+1).toString(36).substring(7)}`
-        console.log(flag)
+        
         if(!room) {
             room = await Room.create({
                 roomName,
