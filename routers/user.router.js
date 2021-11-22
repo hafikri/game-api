@@ -6,7 +6,6 @@ const { validate } = require('../middlewares/validation.middleware')
 const { loginSchema } = require('../schemas/login.schema')
 const { registSchema } = require('../schemas/register.schema')
 const { verify } = require('../middlewares/verify.middleware')
-const { createRoom } = require('../controllers/rooms.controller')
 
 router.post('/register', validate(registSchema), register)
 
@@ -20,6 +19,5 @@ router.post('/login',validate(loginSchema), login)
 router.get('/login', viewLogin)
 
 router.get('/whoiami',verify, whoiami)
-router.get('/create-room',verify, createRoom)
 
 module.exports = router

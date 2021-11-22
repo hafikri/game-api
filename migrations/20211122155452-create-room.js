@@ -19,11 +19,11 @@ module.exports = {
       },
       createdAt: {
         type: Sequelize.DATE,
-        kdefaultValue: new Date()
+        defaultValue: new Date()
       },
       updatedAt: {
         type: Sequelize.DATE,
-        kdefaultValue: new Date()
+        defaultValue: new Date()
       },
       deletedAt: {
         type: Sequelize.DATE,

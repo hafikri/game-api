@@ -1,5 +1,6 @@
 const User = require('./user.model')
 const UserRole = require('./user-role.model')
+const Room = require('./rooms.model')
 
 User.hasOne(UserRole, {
     as: 'role',
@@ -17,5 +18,6 @@ UserRole.belongsTo(User, {
 
 module.exports = {
     User,
-    UserRole
+    UserRole,
+    Room
 }

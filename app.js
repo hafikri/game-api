@@ -9,6 +9,7 @@ const passport = require('./utils/passport')
 
 const user = require('./routers/user.router')
 const dashboard = require('./routers/dashboard.router')
+const room = require('./routers/room.router')
 
 const app = express()
 
@@ -28,6 +29,7 @@ app.set('views', path.join(__dirname, 'views'))
 
 app.use(user)
 app.use(dashboard)
+app.use(room)
 
 app.use((err, req, res, next) => {
     console.log(err)

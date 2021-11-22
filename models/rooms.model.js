@@ -40,3 +40,5 @@ Room.init(
         paranoid: true
     }
 )
+
+module.exports = Room
