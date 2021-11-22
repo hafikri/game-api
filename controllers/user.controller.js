@@ -110,13 +110,30 @@ exports.login = async (req, res, next) => {
             }
         }
 
-        const token = jwt.sign({ userId: isExist.id, roleName: isExist.role.name }, process.env.JWT_TOKEN, {expiresIn: '1 minutes'})
+        const token = jwt.sign({ userId: isExist.id, roleName: isExist.role.name }, process.env.JWT_TOKEN, {expiresIn: '7 days'})
 
         return res.status(200).json({
             message: 'success login',
             code: 200,
             data: {
                 token
+            }
+        })
+    } catch (error) {
+        next(error)
+    }
+}
+
+exports.whoiami = async (req, res, next) => {
+    try {
+        const {user} = req
+        
+        return res.status(200).json({
+            code: 200,
+            message: 'success verify user',
+            data: {
+                fullName: user.fullName,
+                email: user.email
             }
         })
     } catch (error) {

@@ -1,10 +1,12 @@
 const router = require('express').Router()
 
 const passport = require('../utils/passport')
-const { register, login, viewLogin } = require('../controllers/user.controller')
+const { register, login, viewLogin, whoiami } = require('../controllers/user.controller')
 const { validate } = require('../middlewares/validation.middleware')
 const { loginSchema } = require('../schemas/login.schema')
 const { registSchema } = require('../schemas/register.schema')
+const { verify } = require('../middlewares/verify.middleware')
+const { createRoom } = require('../controllers/rooms.controller')
 
 router.post('/register', validate(registSchema), register)
 
@@ -17,5 +19,7 @@ router.post('/login/web', passport.authenticate('local', {
 router.post('/login',validate(loginSchema), login)
 router.get('/login', viewLogin)
 
+router.get('/whoiami',verify, whoiami)
+router.get('/create-room',verify, createRoom)
 
 module.exports = router
